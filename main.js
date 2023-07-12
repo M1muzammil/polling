@@ -27,7 +27,7 @@ login.addEventListener("click", (e) => {
     .then((userCredential) => {
       console.log("Login successful");
       alert('Welcome!');
-      window.location.href = "../polling/index.html";
+      window.location.href = "./polling/index.html";
     })
     .catch((error) => {
       console.log("Login error:", error);
