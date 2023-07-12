@@ -1,0 +1,701 @@
+function calculatePercentages(data) {
+//   const totalVotes = data.option1Votes + data.option2Votes + data.option3Votes;
+//   data.option1Percentage = ((data.option1Votes / totalVotes) * 100).toFixed(2);
+//   data.option2Percentage = ((data.option2Votes / totalVotes) * 100).toFixed(2);
+//   data.option3Percentage = ((data.option3Votes / totalVotes) * 100).toFixed(2);
+// }
+
+// function updatePercentages(docId) {
+//   db.collection('poll')
+//     .doc(docId)
+//     .get()
+//     .then((doc) => {
+//       const data = doc.data();
+//       calculatePercentages(data);
+//       db.collection('poll')
+//         .doc(docId)
+//         .update({
+//           option1Percentage: data.option1Percentage,
+//           option2Percentage: data.option2Percentage,
+//           option3Percentage: data.option3Percentage,
+//         });
+//     })
+//     .catch((error) => {
+//       console.error('Error updating percentages: ', error);
+//     });
+// }
+
+// function createPoll() {
+//   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+//   const question = document.getElementById('question').value;
+//   const option1 = document.getElementById('option1').value;
+//   const option2 = document.getElementById('option2').value;
+//   const option3 = document.getElementById('option3').value;
+
+//   db.collection('poll')
+//     .add({
+//       timestamp: timestamp,
+//       question: question,
+//       option1: option1,
+//       option1Votes: 0,
+//       option1Percentage: 0,
+//       option2: option2,
+//       option2Votes: 0,
+//       option2Percentage: 0,
+//       option3: option3,
+//       option3Votes: 0,
+//       option3Percentage: 0,
+//       voted: false,
+//     })
+//     .then((docRef) => {
+//       console.log('Document written with ID: ', docRef.id);
+//       renderPolls();
+//     })
+//     .catch((error) => {
+//       console.error('Error adding document: ', error);
+//     });
+
+//   document.getElementById('question').value = '';
+//   document.getElementById('option1').value = '';
+//   document.getElementById('option2').value = '';
+//   document.getElementById('option3').value = '';
+// }
+
+// function renderPolls() {
+//   const container = document.querySelector('.container');
+
+//   db.collection('poll')
+//     .orderBy('timestamp', 'desc')
+//     .get()
+//     .then((querySnapshot) => {
+//       container.innerHTML = ''; // Clear previous poll list
+
+//       if (querySnapshot.empty) {
+//         container.innerText = 'No Polls Found';
+//       } else {
+//         querySnapshot.forEach((doc) => {
+//           const data = doc.data();
+//           calculatePercentages(data);
+
+//           const newlist = document.createElement('div');
+//           newlist.className = 'list';
+
+//           const h1 = document.createElement('h1');
+//           h1.className = 'apph1';
+//           h1.innerText = data.question;
+//           newlist.appendChild(h1);
+
+//           const box = document.createElement('div');
+//           box.className = 'llist';
+//           newlist.appendChild(box);
+
+//           const row1 = document.createElement('div');
+//           row1.className = 'row1';
+//           box.appendChild(row1);
+
+//           const rowinrow1 = document.createElement('div');
+//           row1.appendChild(rowinrow1);
+//           rowinrow1.className = 'rowinrow';
+
+//           const option1Label = document.createElement('label');
+//           const opp1 = document.createElement('input');
+//           opp1.type = 'radio';
+//           opp1.name = 'options';
+//           opp1.value = data.option1;
+//           opp1.addEventListener('click', () => {
+//             if (!data.voted) {
+//               data.option1Votes++;
+//               data.voted = true;
+//               updatePercentages(doc.id);
+//               const option1Percentage = rowinrow1.querySelector('.percentage');
+//               option1Percentage.innerText = `${data.option1Percentage}%`;
+//             }
+//           });
+//           option1Label.appendChild(opp1);
+//           option1Label.appendChild(document.createTextNode(data.option1));
+//           rowinrow1.appendChild(option1Label);
+
+//           const option1Percentage = document.createElement('span');
+//           option1Percentage.className = 'percentage';
+//           option1Percentage.innerText = `${data.option1Percentage}%`;
+//           rowinrow1.appendChild(option1Percentage);
+
+//           const row2 = document.createElement('div');
+//           row2.className = 'row1';
+//           box.appendChild(row2);
+
+//           const rowinrow2 = document.createElement('div');
+//           row2.appendChild(rowinrow2);
+//           rowinrow2.className = 'rowinrow';
+
+//           const option2Label = document.createElement('label');
+//           const opp2 = document.createElement('input');
+//           opp2.type = 'radio';
+//           opp2.name = 'options';
+//           opp2.value = data.option2;
+//           opp2.addEventListener('click', () => {
+//             if (!data.voted) {
+//               data.option2Votes++;
+//               data.voted = true;
+//               updatePercentages(doc.id);
+//               const option2Percentage = rowinrow2.querySelector('.percentage');
+//               option2Percentage.innerText = `${data.option2Percentage}%`;
+//             }
+//           });
+//           option2Label.appendChild(opp2);
+//           option2Label.appendChild(document.createTextNode(data.option2));
+//           rowinrow2.appendChild(option2Label);
+
+//           const option2Percentage = document.createElement('span');
+//           option2Percentage.className = 'percentage';
+//           option2Percentage.innerText = `${data.option2Percentage}%`;
+//           rowinrow2.appendChild(option2Percentage);
+
+//           const row3 = document.createElement('div');
+//           row3.className = 'row1';
+//           box.appendChild(row3);
+
+//           const rowinrow3 = document.createElement('div');
+//           row3.appendChild(rowinrow3);
+//           rowinrow3.className = 'rowinrow';
+
+//           const option3Label = document.createElement('label');
+//           const opp3 = document.createElement('input');
+//           opp3.type = 'radio';
+//           opp3.name = 'options';
+//           opp3.value = data.option3;
+//           opp3.addEventListener('click', () => {
+//             if (!data.voted) {
+//               data.option3Votes++;
+//               data.voted = true;
+//               updatePercentages(doc.id);
+//               const option3Percentage = rowinrow3.querySelector('.percentage');
+//               option3Percentage.innerText = `${data.option3Percentage}%`;
+//             }
+//           });
+//           option3Label.appendChild(opp3);
+//           option3Label.appendChild(document.createTextNode(data.option3));
+//           rowinrow3.appendChild(option3Label);
+
+//           const option3Percentage = document.createElement('span');
+//           option3Percentage.className = 'percentage';
+//           option3Percentage.innerText = `${data.option3Percentage}%`;
+//           rowinrow3.appendChild(option3Percentage);
+
+//           const deleteCell = document.createElement('button');
+//           deleteCell.className = 'delete';
+//           newlist.appendChild(deleteCell);
+//           deleteCell.name = 'delete';
+//           deleteCell.addEventListener('click', () => deletePoll(doc.id));
+//           deleteCell.textContent = 'Delete';
+
+//           container.appendChild(newlist);
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       console.error('Error fetching polls: ', error);
+//     });
+// }
+
+// function deletePoll(docId) {
+//   const password = prompt('Enter password to delete the poll:');
+
+//   if (password === '12345678') {
+//     return db
+//       .collection('poll')
+//       .doc(docId)
+//       .delete()
+//       .then(() => {
+//         renderPolls();
+//       })
+//       .catch((error) => {
+//         console.error('Error deleting poll: ', error);
+//       });
+//   } else {
+//     alert('Incorrect password. Poll not deleted.');
+//   }
+// }
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   renderPolls();
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+function calculatePercentages(data) {
+  const totalVotes = data.option1Votes + data.option2Votes + data.option3Votes;
+  data.option1Percentage = ((data.option1Votes / totalVotes) * 100).toFixed(2);
+  data.option2Percentage = ((data.option2Votes / totalVotes) * 100).toFixed(2);
+  data.option3Percentage = ((data.option3Votes / totalVotes) * 100).toFixed(2);
+}
+
+function updatePercentages(docId) {
+  db.collection('poll')
+    .doc(docId)
+    .get()
+    .then((doc) => {
+      const data = doc.data();
+      calculatePercentages(data);
+      db.collection('poll')
+        .doc(docId)
+        .update({
+          option1Percentage: data.option1Percentage,
+          option2Percentage: data.option2Percentage,
+          option3Percentage: data.option3Percentage,
+        });
+    })
+    .catch((error) => {
+      console.error('Error updating percentages: ', error);
+    });
+}
+
+function createPoll() {
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+  const question = document.getElementById('question').value;
+  const option1 = document.getElementById('option1').value;
+  const option2 = document.getElementById('option2').value;
+  const option3 = document.getElementById('option3').value;
+
+  db.collection('poll')
+    .add({
+      timestamp: timestamp,
+      question: question,
+      option1: option1,
+      option1Votes: 0,
+      option1Percentage: 0,
+      option2: option2,
+      option2Votes: 0,
+      option2Percentage: 0,
+      option3: option3,
+      option3Votes: 0,
+      option3Percentage: 0,
+      voted: false,
+    })
+    .then((docRef) => {
+      console.log('Document written with ID: ', docRef.id);
+      renderPolls();
+    })
+    .catch((error) => {
+      console.error('Error adding document: ', error);
+    });
+
+  document.getElementById('question').value = '';
+  document.getElementById('option1').value = '';
+  document.getElementById('option2').value = '';
+  document.getElementById('option3').value = '';
+}
+
+function renderPolls() {
+  const container = document.querySelector('.container');
+
+  db.collection('poll')
+    .orderBy('timestamp', 'desc')
+    .get()
+    .then((querySnapshot) => {
+      container.innerHTML = ''; // Clear previous poll list
+
+      if (querySnapshot.empty) {
+        container.innerText = 'No Polls Found';
+      } else {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          calculatePercentages(data);
+
+          const newlist = document.createElement('div');
+          newlist.className = 'list';
+
+          const h1 = document.createElement('h1');
+          h1.className = 'apph1';
+          h1.innerText = data.question;
+          newlist.appendChild(h1);
+
+          const box = document.createElement('div');
+          box.className = 'llist';
+          newlist.appendChild(box);
+
+          const row1 = document.createElement('div');
+          row1.className = 'row1';
+          box.appendChild(row1);
+
+          const rowinrow1 = document.createElement('div');
+          row1.appendChild(rowinrow1);
+          rowinrow1.className = 'rowinrow';
+
+          const option1Label = document.createElement('label');
+          const opp1 = document.createElement('input');
+          opp1.type = 'radio';
+          opp1.name = 'options';
+          opp1.value = data.option1;
+          opp1.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option1Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option1Label.appendChild(opp1);
+          option1Label.appendChild(document.createTextNode(data.option1));
+          rowinrow1.appendChild(option1Label);
+
+          const option1Percentage = document.createElement('span');
+          option1Percentage.className = 'percentage';
+          option1Percentage.innerText = `${data.option1Percentage}%`;
+          rowinrow1.appendChild(option1Percentage);
+
+          const row2 = document.createElement('div');
+          row2.className = 'row1';
+          box.appendChild(row2);
+
+          const rowinrow2 = document.createElement('div');
+          row2.appendChild(rowinrow2);
+          rowinrow2.className = 'rowinrow';
+
+          const option2Label = document.createElement('label');
+          const opp2 = document.createElement('input');
+          opp2.type = 'radio';
+          opp2.name = 'options';
+          opp2.value = data.option2;
+          opp2.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option2Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option2Label.appendChild(opp2);
+          option2Label.appendChild(document.createTextNode(data.option2));
+          rowinrow2.appendChild(option2Label);
+
+          const option2Percentage = document.createElement('span');
+          option2Percentage.className = 'percentage';
+          option2Percentage.innerText = `${data.option2Percentage}%`;
+          rowinrow2.appendChild(option2Percentage);
+
+          const row3 = document.createElement('div');
+          row3.className = 'row1';
+          box.appendChild(row3);
+
+          const rowinrow3 = document.createElement('div');
+          row3.appendChild(rowinrow3);
+          rowinrow3.className = 'rowinrow';
+
+          const option3Label = document.createElement('label');
+          const opp3 = document.createElement('input');
+          opp3.type = 'radio';
+          opp3.name = 'options';
+          opp3.value = data.option3;
+          opp3.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option3Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option3Label.appendChild(opp3);
+          option3Label.appendChild(document.createTextNode(data.option3));
+          rowinrow3.appendChild(option3Label);
+
+          const option3Percentage = document.createElement('span');
+          option3Percentage.className = 'percentage';
+          option3Percentage.innerText = `${data.option3Percentage}%`;
+          rowinrow3.appendChild(option3Percentage);
+
+          const deleteCell = document.createElement('button');
+          deleteCell.className = 'delete';
+          newlist.appendChild(deleteCell);
+          deleteCell.name = 'delete';
+          deleteCell.addEventListener('click', () => deletePoll(doc.id));
+          deleteCell.textContent = 'Delete';
+
+          container.appendChild(newlist);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching polls: ', error);
+    });
+}
+
+function deletePoll(docId) {
+  const password = prompt('Enter password to delete the poll:');
+
+  if (password === '12345678') {
+    return db
+      .collection('poll')
+      .doc(docId)
+      .delete()
+      .then(() => {
+        renderPolls();
+      })
+      .catch((error) => {
+        console.error('Error deleting poll: ', error);
+      });
+  } else {
+    alert('Incorrect password. Poll not deleted.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderPolls();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+function calculatePercentages(data) {
+  const totalVotes = data.option1Votes + data.option2Votes + data.option3Votes;
+  data.option1Percentage = ((data.option1Votes / totalVotes) * 100).toFixed(2);
+  data.option2Percentage = ((data.option2Votes / totalVotes) * 100).toFixed(2);
+  data.option3Percentage = ((data.option3Votes / totalVotes) * 100).toFixed(2);
+}
+
+function updatePercentages(docId) {
+  db.collection('poll')
+    .doc(docId)
+    .get()
+    .then((doc) => {
+      const data = doc.data();
+      calculatePercentages(data);
+      db.collection('poll').doc(docId).update({
+        option1Percentage: data.option1Percentage,
+        option2Percentage: data.option2Percentage,
+        option3Percentage: data.option3Percentage,
+      });
+    })
+    .catch((error) => {
+      console.error('Error updating percentages: ', error);
+    });
+}
+
+function createPoll() {
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+  const question = document.getElementById('question').value;
+  const option1 = document.getElementById('option1').value;
+  const option2 = document.getElementById('option2').value;
+  const option3 = document.getElementById('option3').value;
+
+  db.collection('poll')
+    .add({
+      timestamp: timestamp,
+      question: question,
+      option1: option1,
+      option1Votes: 0,
+      option1Percentage: 0,
+      option2: option2,
+      option2Votes: 0,
+      option2Percentage: 0,
+      option3: option3,
+      option3Votes: 0,
+      option3Percentage: 0,
+      voted: false,
+    })
+    .then((docRef) => {
+      console.log('Document written with ID: ', docRef.id);
+      renderPolls();
+    })
+    .catch((error) => {
+      console.error('Error adding document: ', error);
+    });
+
+  document.getElementById('question').value = '';
+  document.getElementById('option1').value = '';
+  document.getElementById('option2').value = '';
+  document.getElementById('option3').value = '';
+}
+
+function renderPolls() {
+  const container = document.querySelector('.container');
+
+  db.collection('poll')
+    .orderBy('timestamp', 'desc')
+    .get()
+    .then((querySnapshot) => {
+      container.innerHTML = ''; // Clear previous poll list
+
+      if (querySnapshot.empty) {
+        container.innerText = 'No Polls Found';
+      } else {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          calculatePercentages(data);
+
+          const newlist = document.createElement('div');
+          newlist.className = 'list';
+
+          const h1 = document.createElement('h1');
+          h1.className = 'apph1';
+          h1.innerText = data.question;
+          newlist.appendChild(h1);
+
+          const box = document.createElement('div');
+          box.className = 'llist';
+          newlist.appendChild(box);
+
+          const row1 = document.createElement('div');
+          row1.className = 'row1';
+          box.appendChild(row1);
+
+          const rowinrow1 = document.createElement('div');
+          row1.appendChild(rowinrow1);
+          rowinrow1.className = 'rowinrow';
+
+          const option1Label = document.createElement('label');
+          const opp1 = document.createElement('input');
+          opp1.type = 'radio';
+          opp1.name = 'options';
+          opp1.value = data.option1;
+          opp1.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option1Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option1Label.appendChild(opp1);
+          option1Label.appendChild(document.createTextNode(data.option1));
+          rowinrow1.appendChild(option1Label);
+
+          const row2 = document.createElement('div');
+          row2.className = 'row1';
+          box.appendChild(row2);
+
+          const rowinrow2 = document.createElement('div');
+          row2.appendChild(rowinrow2);
+          rowinrow2.className = 'rowinrow';
+
+          const option2Label = document.createElement('label');
+          const opp2 = document.createElement('input');
+          opp2.type = 'radio';
+          opp2.name = 'options';
+          opp2.value = data.option2;
+          opp2.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option2Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option2Label.appendChild(opp2);
+          option2Label.appendChild(document.createTextNode(data.option2));
+          rowinrow2.appendChild(option2Label);
+
+          const row3 = document.createElement('div');
+          row3.className = 'row1';
+          box.appendChild(row3);
+
+          const rowinrow3 = document.createElement('div');
+          row3.appendChild(rowinrow3);
+          rowinrow3.className = 'rowinrow';
+
+          const option3Label = document.createElement('label');
+          const opp3 = document.createElement('input');
+          opp3.type = 'radio';
+          opp3.name = 'options';
+          opp3.value = data.option3;
+          opp3.addEventListener('click', () => {
+            if (!data.voted) {
+              data.option3Votes++;
+              data.voted = true;
+              updatePercentages(doc.id);
+            }
+          });
+          option3Label.appendChild(opp3);
+          option3Label.appendChild(document.createTextNode(data.option3));
+          rowinrow3.appendChild(option3Label);
+
+          const deleteCell = document.createElement('button');
+          deleteCell.className = 'delete';
+          newlist.appendChild(deleteCell);
+          deleteCell.name = 'delete';
+          deleteCell.addEventListener('click', () => deletePoll(doc.id));
+          deleteCell.textContent = 'Delete';
+
+          container.appendChild(newlist);
+        });
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching polls: ', error);
+    });
+}
+
+function deletePoll(docId) {
+  const password = prompt('Enter password to delete the poll:');
+
+  if (password === '12345678') {
+    return db
+      .collection('poll')
+      .doc(docId)
+      .delete()
+      .then(() => {
+        renderPolls();
+      })
+      .catch((error) => {
+        console.error('Error deleting poll: ', error);
+      });
+  } else {
+    alert('Incorrect password. Poll not deleted.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderPolls();
+});
+
+
+
+
+
+
+
+// ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

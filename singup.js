@@ -26,7 +26,8 @@ createUser.addEventListener('click', ()=> {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    alert('user created')
+    alert('welcome to solveyy...')
+    window.location = "./polling/index.html"
     // ...
   })
   .catch((error) => {
@@ -35,4 +36,15 @@ createUser.addEventListener('click', ()=> {
     // ..
     alert(errorMessage)
   });
+
+
+
+
+
+
 })
+
+
+
+
+

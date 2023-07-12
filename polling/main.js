@@ -18,10 +18,16 @@ const firebaseConfig = {
   messagingSenderId: "106198135913",
   appId: "1:106198135913:web:c025dc5e65dfa40fab9ef8",
   measurementId: "G-T82387CZRT"
+
 };
 
+
+
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
+
+
 
 function createPoll() {
   // Get the current timestamp
@@ -114,7 +120,7 @@ function renderPolls() {
           opp2.value = data.option2;
           option2Label.appendChild(opp2);
           option2Label.appendChild(document.createTextNode(data.option2));
-          rowinrow2.appendChild(option2Label);
+          rowinrow2.appendChild( option2Label);
 
           const row3 = document.createElement("div");
           row3.className = "row1";
@@ -152,7 +158,7 @@ function renderPolls() {
 function deletePoll(docId) {
   const password = prompt("Enter password to delete the poll:");
 
-  if (password === "123123123") {
+  if (password === "12345678") {
     return db
       .collection("poll")
       .doc(docId)
@@ -172,3 +178,5 @@ function deletePoll(docId) {
 document.addEventListener("DOMContentLoaded", function () {
   renderPolls();
 });
+
+

@@ -185,7 +185,7 @@
    
    .rowinrow{
        color: greenyellow;
-       background-color: rgb(8, 8, 8);
+       background-color: rgb(11, 11, 11);
        border: 2px solid green;
        width: 90%;
        height: 100%;
@@ -205,9 +205,10 @@
    }
    .row1{
        color: greenyellow;
-       background-color: rgb(4, 4, 4);
+       background-color: rgb(198, 20, 20);
        margin: 1em;
        display: flex;
+       justify-content: space-between;
    
        /* justify-content: space-around;  */
    }

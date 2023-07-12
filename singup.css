@@ -185,7 +185,7 @@
    
    .rowinrow{
        color: greenyellow;
-       background-color: rgb(8, 8, 8);
+       background-color: rgb(164, 38, 38);
        border: 2px solid green;
        width: 90%;
        height: 100%;
@@ -197,6 +197,7 @@
        display: flex;
        justify-content: center;
        align-items: center;
+       background-color: blue;
    }
    .percent{
        display: flex;
